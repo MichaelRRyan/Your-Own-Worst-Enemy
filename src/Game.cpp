@@ -57,6 +57,11 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+
+	for (std::unique_ptr<Entity> & entity : m_entities)
+	{
+		entity->update(m_level);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -66,16 +71,21 @@ void Game::render()
 
 	sf::RectangleShape tile{ { 16.0f, 16.0f } };
 
-	for (int row = 0; row < m_level.size(); row++)
+	for (int row = 0; row < m_level.getSize().y; row++)
 	{
-		for (int col = 0; col < m_level.at(0).size(); col++)
+		for (int col = 0; col < m_level.getSize().x; col++)
 		{
 			tile.setPosition(col * tile.getSize().x, row * tile.getSize().y);
 
-			tile.setFillColor(m_level[row][col]->getColor());
+			tile.setFillColor(m_level.getTile(row, col).getColor());
 
 			m_window.draw(tile);
 		}
+	}
+
+	for (std::unique_ptr<Entity> const & entity : m_entities)
+	{
+		m_window.draw(*entity);
 	}
 
 	m_window.display();
@@ -84,15 +94,21 @@ void Game::render()
 ///////////////////////////////////////////////////////////////////
 void Game::setupGame()
 {
-	for (int row = 0; row < m_level.size(); row++)
+	for (int row = 0; row < m_level.getSize().y; row++)
 	{
-		for (int col = 0; col < m_level.at(0).size(); col++)
+		for (int col = 0; col < m_level.getSize().x; col++)
 		{
-			m_level[row][col].reset(new EmptyTile);
+			m_level.setTile(row, col, new EmptyTile);
 		}
 	}
 
-	m_level[5][0].reset(new SolidTile);
+	m_level.setTile(5, 0, new SolidTile);
+
+	m_entities.push_back(std::make_unique<Player>());
+
+	float viewScale = 4.0f;
+
+	m_window.setView({ m_window.getView().getCenter() / viewScale, m_window.getView().getSize() / viewScale });
 }
 
 ///////////////////////////////////////////////////////////////////

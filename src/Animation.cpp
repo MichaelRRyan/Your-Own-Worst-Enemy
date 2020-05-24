@@ -1,0 +1,30 @@
+/// @Author Michael Rainsford Ryan
+
+#include "Animation.h"
+
+///////////////////////////////////////////////////////////////////
+Animation::Animation(sf::Texture const& t_texture, sf::IntRect const& t_frame) :
+	m_texture{ t_texture }
+{
+	m_frames.push_back(t_frame);
+}
+
+///////////////////////////////////////////////////////////////////
+void Animation::addFrame(sf::IntRect const& t_frame)
+{
+	m_frames.push_back(t_frame);
+}
+
+///////////////////////////////////////////////////////////////////
+sf::Texture const& Animation::getTexture() const
+{
+	return m_texture;
+}
+
+///////////////////////////////////////////////////////////////////
+sf::IntRect const& Animation::getFrame(int t_index) const
+{
+	return m_frames.at(t_index);
+}
+
+///////////////////////////////////////////////////////////////////

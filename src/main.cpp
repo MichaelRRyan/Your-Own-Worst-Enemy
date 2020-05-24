@@ -1,6 +1,6 @@
-/// Game Title
-/// @Author
-/// @Date
+/// Your Own Worst Enemy
+/// @Author Michael Rainsford Ryan
+/// @Date 24/05/2020
 
 #ifdef _DEBUG 
 #pragma comment(lib,"sfml-graphics-d.lib") 
@@ -16,7 +16,7 @@
 #pragma comment(lib,"sfml-network.lib") 
 #endif
 
-#include "..\include\Game.h"
+#include "Game.h"
 
 int main()
 {

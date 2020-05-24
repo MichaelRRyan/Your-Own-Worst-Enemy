@@ -141,15 +141,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AnimatedSprite.cpp" />
+    <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\EmptyTile.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\SolidTile.cpp" />
     <ClCompile Include="src\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\AnimatedSprite.h" />
+    <ClInclude Include="include\Animation.h" />
     <ClInclude Include="include\EmptyTile.h" />
+    <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Level.h" />
+    <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\SolidTile.h" />
     <ClInclude Include="include\Tile.h" />
   </ItemGroup>

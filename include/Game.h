@@ -7,12 +7,14 @@
 /// </summary>
 
 #include <SFML/Graphics.hpp>
-#include <array>
-#include <Memory>
+#include <vector>
 
-#include "Tile.h"
+#include "Level.h"
 #include "EmptyTile.h"
 #include "SolidTile.h"
+
+#include "Entity.h"
+#include "Player.h"
 
 /// <summary>
 /// The game's main class. Keeps the game running at 60
@@ -38,7 +40,9 @@ private:
 	sf::RenderWindow m_window;
 	bool m_exitGame;
 
-	std::array<std::array<std::shared_ptr<Tile>, 20>, 10> m_level;
+	Level m_level;
+
+	std::vector<std::unique_ptr<Entity>> m_entities;
 
 };
 
