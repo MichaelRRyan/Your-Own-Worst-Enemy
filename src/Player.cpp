@@ -76,7 +76,6 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 	// Jump
 	if (Input::getCurrentState().jump && !Input::getPreviousState().jump)
 	{
-		// Regular jump
 		if (m_onGround)
 		{
 			m_velocity.y = -s_JUMP_SPEED;
@@ -97,12 +96,6 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 			while (!CollisionDetector::isColliding(t_levelRef, { { m_animatedSprite.getPosition().x - 8.0f + velocitySign, m_animatedSprite.getPosition().y - 8.0f }, { 16.0f, 16.0f } }))
 			{
 				m_animatedSprite.move(velocitySign, 0.0f);
-			}
-
-			// Move by the acceleration (smallest amount the player can move) until next to the wall
-			while (!CollisionDetector::isColliding(t_levelRef, { { m_animatedSprite.getPosition().x - 8.0f + velocitySign * s_MOVE_ACCELERATION, m_animatedSprite.getPosition().y - 8.0f }, { 16.0f, 16.0f } }))
-			{
-				m_animatedSprite.move(velocitySign * s_MOVE_ACCELERATION, 0.0f);
 			}
 
 			m_velocity.x = 0.0f;
