@@ -15,7 +15,7 @@ public:
 
 	Player();
 
-	virtual void update(Level const& t_levelRef) override;
+	virtual void update(sf::Time const& t_deltaTime, Level const& t_levelRef) override;
 
 private:
 

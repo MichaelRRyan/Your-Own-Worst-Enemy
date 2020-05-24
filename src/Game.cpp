@@ -60,7 +60,7 @@ void Game::update(sf::Time t_deltaTime)
 
 	for (std::unique_ptr<Entity> & entity : m_entities)
 	{
-		entity->update(m_level);
+		entity->update(t_deltaTime, m_level);
 	}
 }
 

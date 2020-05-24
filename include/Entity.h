@@ -14,7 +14,7 @@ class Entity : public sf::Drawable
 {
 public:
 
-	virtual void update(Level const & t_levelRef) = 0;
+	virtual void update(sf::Time const& t_deltaTime, Level const & t_levelRef) = 0;
 
 };
 

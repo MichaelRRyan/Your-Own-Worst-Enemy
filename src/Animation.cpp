@@ -4,7 +4,8 @@
 
 ///////////////////////////////////////////////////////////////////
 Animation::Animation(sf::Texture const& t_texture, sf::IntRect const& t_frame) :
-	m_texture{ t_texture }
+	m_texture{ t_texture },
+	m_timePerFrame{ sf::seconds(0.15f) }
 {
 	m_frames.push_back(t_frame);
 }
@@ -13,6 +14,12 @@ Animation::Animation(sf::Texture const& t_texture, sf::IntRect const& t_frame) :
 void Animation::addFrame(sf::IntRect const& t_frame)
 {
 	m_frames.push_back(t_frame);
+}
+
+///////////////////////////////////////////////////////////////////
+void Animation::setTimePerFrame(sf::Time t_timePerFrame)
+{
+	m_timePerFrame = t_timePerFrame;
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -25,6 +32,18 @@ sf::Texture const& Animation::getTexture() const
 sf::IntRect const& Animation::getFrame(int t_index) const
 {
 	return m_frames.at(t_index);
+}
+
+///////////////////////////////////////////////////////////////////
+sf::Time const & Animation::getTimePerFrame() const
+{
+	return m_timePerFrame;
+}
+
+///////////////////////////////////////////////////////////////////
+int const Animation::getSize()
+{
+	return m_frames.size();
 }
 
 ///////////////////////////////////////////////////////////////////

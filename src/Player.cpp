@@ -10,14 +10,21 @@ Player::Player()
 		throw("Error loading character sprite sheet");
 	}
 
-	m_animatedSprite.addAnimation("idle", Animation{ m_texture, { 0, 0, 16, 16 } });
 	m_animatedSprite.addAnimation("walk", Animation{ m_texture, { 32, 0, 16, 16 } });
+	m_animatedSprite.addFrame("walk", { 0, 0, 16, 16 });
+	m_animatedSprite.addFrame("walk", { 48, 0, 16, 16 });
+	m_animatedSprite.addFrame("walk", { 0, 0, 16, 16 });
+
+	m_animatedSprite.addAnimation("idle", Animation{ m_texture, { 0, 0, 16, 16 } });
+	m_animatedSprite.addFrame("idle", { 0, 0, 16, 16 });
+	m_animatedSprite.addFrame("idle", { 16, 0, 16, 16 });
+	m_animatedSprite.addFrame("idle", { 16, 0, 16, 16 });
 }
 
 ///////////////////////////////////////////////////////////////////
-void Player::update(Level const& t_levelRef)
+void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 {
-	m_animatedSprite.update();
+	m_animatedSprite.update(t_deltaTime);
 }
 
 ///////////////////////////////////////////////////////////////////
