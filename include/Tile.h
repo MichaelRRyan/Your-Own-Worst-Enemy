@@ -12,7 +12,9 @@ class Tile
 {
 public:
 
-	virtual sf::Color getColor() const = 0;
+	virtual sf::Color const getColor() const = 0;
+
+	virtual bool const isSolid() const = 0;
 
 };
 

@@ -24,6 +24,29 @@ public:
 
 	void startAnimating(std::string const & t_animationName);
 
+	// Transformations
+	void setPosition(sf::Vector2f const & t_position);
+
+	void setPosition(float const t_x, float const t_y);
+
+	void move(sf::Vector2f const & t_displacement);
+
+	void move(float const t_x, float const t_y);
+
+	void setScale(sf::Vector2f const & t_scale);
+
+	void setScale(float const t_x, float const t_y);
+
+	void setOrigin(sf::Vector2f const & t_origin);
+
+	void setOrigin(float const t_x, float const t_y);
+
+	sf::Vector2f const & getPosition() const;
+
+	sf::Vector2f const & getScale() const;
+
+	sf::Vector2f const & getOrigin() const;
+
 private:
 
 	virtual void draw(sf::RenderTarget& t_target, sf::RenderStates t_states) const override;

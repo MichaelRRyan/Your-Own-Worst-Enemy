@@ -50,19 +50,88 @@ void AnimatedSprite::addFrame(std::string const& t_animationName, sf::IntRect co
 ///////////////////////////////////////////////////////////////////
 void AnimatedSprite::startAnimating(std::string const& t_animationName)
 {
-	if (m_animations.count(t_animationName))
+	if (t_animationName != m_currentAnimation)
 	{
-		m_currentAnimation = t_animationName; // Set the current animation name
-		m_elapsedTime = sf::Time::Zero; // Reset the elapsed time
+		if (m_animations.count(t_animationName))
+		{
+			m_currentAnimation = t_animationName; // Set the current animation name
+			m_elapsedTime = sf::Time::Zero; // Reset the elapsed time
 
-		// Update the sprite
-		m_sprite.setTexture(m_animations.at(t_animationName).getTexture());
-		m_sprite.setTextureRect(m_animations.at(t_animationName).getFrame(0));
+			// Update the sprite
+			m_sprite.setTexture(m_animations.at(t_animationName).getTexture());
+			m_sprite.setTextureRect(m_animations.at(t_animationName).getFrame(0));
+		}
+		else
+		{
+			throw("No animation called \"" + t_animationName + "\"");
+		}
 	}
-	else
-	{
-		throw("No animation called \"" + t_animationName + "\"");
-	}
+}
+
+///////////////////////////////////////////////////////////////////
+void AnimatedSprite::setPosition(sf::Vector2f const& t_position)
+{
+	m_sprite.setPosition(t_position);
+}
+
+///////////////////////////////////////////////////////////////////
+void AnimatedSprite::setPosition(float const t_x, float const t_y)
+{
+	m_sprite.setPosition(t_x, t_y);
+}
+
+///////////////////////////////////////////////////////////////////
+void AnimatedSprite::move(sf::Vector2f const& t_displacement)
+{
+	m_sprite.move(t_displacement);
+}
+
+///////////////////////////////////////////////////////////////////
+void AnimatedSprite::move(float const t_x, float const t_y)
+{
+	m_sprite.move(t_x, t_y);
+}
+
+///////////////////////////////////////////////////////////////////
+void AnimatedSprite::setScale(sf::Vector2f const& t_scale)
+{
+	m_sprite.setScale(t_scale);
+}
+
+///////////////////////////////////////////////////////////////////
+void AnimatedSprite::setScale(float const t_x, float const t_y)
+{
+	m_sprite.setScale(t_x, t_y);
+}
+
+///////////////////////////////////////////////////////////////////
+void AnimatedSprite::setOrigin(sf::Vector2f const& t_origin)
+{
+	m_sprite.setOrigin(t_origin);
+}
+
+///////////////////////////////////////////////////////////////////
+void AnimatedSprite::setOrigin(float const t_x, float const t_y)
+{
+	m_sprite.setOrigin(t_x, t_y);
+}
+
+///////////////////////////////////////////////////////////////////
+sf::Vector2f const& AnimatedSprite::getOrigin() const
+{
+	return m_sprite.getOrigin();
+}
+
+///////////////////////////////////////////////////////////////////
+sf::Vector2f const& AnimatedSprite::getPosition() const
+{
+	return m_sprite.getPosition();
+}
+
+///////////////////////////////////////////////////////////////////
+sf::Vector2f const& AnimatedSprite::getScale() const
+{
+	return m_sprite.getScale();
 }
 
 ///////////////////////////////////////////////////////////////////

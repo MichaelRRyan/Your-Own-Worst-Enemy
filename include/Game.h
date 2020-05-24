@@ -9,6 +9,9 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include "Input.h"
+#include "Gamepad.h"
+
 #include "Level.h"
 #include "EmptyTile.h"
 #include "SolidTile.h"
@@ -43,6 +46,8 @@ private:
 	Level m_level;
 
 	std::vector<std::unique_ptr<Entity>> m_entities;
+
+	Gamepad m_controller;
 
 };
 

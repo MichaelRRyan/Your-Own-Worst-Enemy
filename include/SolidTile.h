@@ -12,7 +12,9 @@ class SolidTile : public Tile
 {
 public:
 
-	sf::Color getColor() const override;
+	sf::Color const getColor() const override;
+
+	bool const isSolid() const override;
 
 };
 

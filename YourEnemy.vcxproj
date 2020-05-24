@@ -143,25 +143,33 @@
   <ItemGroup>
     <ClCompile Include="src\AnimatedSprite.cpp" />
     <ClCompile Include="src\Animation.cpp" />
+    <ClCompile Include="src\CollisionDetector.cpp" />
     <ClCompile Include="src\EmptyTile.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Gamepad.cpp" />
+    <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\SolidTile.cpp" />
     <ClCompile Include="src\Tile.cpp" />
+    <ClCompile Include="src\VectorMath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AnimatedSprite.h" />
     <ClInclude Include="include\Animation.h" />
+    <ClInclude Include="include\CollisionDetector.h" />
     <ClInclude Include="include\EmptyTile.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Gamepad.h" />
+    <ClInclude Include="include\Input.h" />
     <ClInclude Include="include\Level.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\SolidTile.h" />
     <ClInclude Include="include\Tile.h" />
+    <ClInclude Include="include\VectorMath.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

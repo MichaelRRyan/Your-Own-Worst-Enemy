@@ -4,10 +4,13 @@
 
 ///////////////////////////////////////////////////////////////////
 Game::Game() :
-	m_window{ sf::VideoMode{ 800u, 600u, 32u }, "Basic Game" },
+	m_window{ sf::VideoMode{ 1280u, 720u, 32u }, "Basic Game" },
 	m_exitGame{ false }
 {
 	setupGame();
+
+	m_controller.connect();
+	Input::setControllerPointer(&m_controller);
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -57,6 +60,8 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+
+	Input::update(m_window);
 
 	for (std::unique_ptr<Entity> & entity : m_entities)
 	{
