@@ -12,9 +12,11 @@ class Tile
 {
 public:
 
-	virtual sf::Color const getColor() const = 0;
+	virtual sf::IntRect const getTextureRect() const = 0;
 
 	virtual bool const isSolid() const = 0;
+
+	virtual bool const isVisible() const = 0;
 
 };
 

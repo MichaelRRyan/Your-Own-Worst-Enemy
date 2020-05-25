@@ -49,6 +49,9 @@ private:
 
 	Gamepad m_controller;
 
+	sf::Texture m_tileSheet;
+	sf::Sprite m_tileSprite;
+
 };
 
 #endif // !GAME

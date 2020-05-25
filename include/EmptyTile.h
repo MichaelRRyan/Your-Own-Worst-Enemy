@@ -12,9 +12,11 @@ class EmptyTile : public Tile
 {
 public:
 
-	sf::Color const getColor() const override;
+	sf::IntRect const getTextureRect() const override;
 
 	bool const isSolid() const override;
+
+	bool const isVisible() const override;
 
 };
 

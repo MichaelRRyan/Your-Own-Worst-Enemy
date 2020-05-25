@@ -6,22 +6,25 @@
 Player::Player() :
 	m_onGround{ false }
 {
+	m_size = { 12.0f, 14.0f };
+
 	if (!m_texture.loadFromFile("assets/images/sprite_sheet.png"))
 	{
-		throw("Error loading character sprite sheet");
+		std::exception exception("Error loading character sprite sheet");
+		throw(exception);
 	}
 
 	m_animatedSprite.addAnimation("walk", Animation{ m_texture, { 32, 0, 16, 16 } });
-	//m_animatedSprite.addFrame("walk", { 0, 0, 16, 16 });
+	m_animatedSprite.addFrame("walk", { 0, 0, 16, 16 });
 	m_animatedSprite.addFrame("walk", { 48, 0, 16, 16 });
-	//m_animatedSprite.addFrame("walk", { 0, 0, 16, 16 });
+	m_animatedSprite.addFrame("walk", { 0, 0, 16, 16 });
 
 	m_animatedSprite.addAnimation("idle", Animation{ m_texture, { 0, 0, 16, 16 } });
 	m_animatedSprite.addFrame("idle", { 0, 0, 16, 16 });
 	m_animatedSprite.addFrame("idle", { 16, 0, 16, 16 });
 	m_animatedSprite.addFrame("idle", { 16, 0, 16, 16 });
 
-	m_animatedSprite.setOrigin(8.0f, 8.0f);
+	m_animatedSprite.setOrigin(8.0f, 9.0f);
 	m_animatedSprite.setPosition(8.0f, 8.0f);
 }
 
@@ -87,13 +90,13 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 	// Horizontal collisions
 	if (m_velocity.x != 0.0f)
 	{
-		if (CollisionDetector::isColliding(t_levelRef, { { m_animatedSprite.getPosition().x - 8.0f + m_velocity.x, m_animatedSprite.getPosition().y - 8.0f }, { 16.0f, 16.0f } }))
+		if (CollisionDetector::isColliding(t_levelRef, { { m_animatedSprite.getPosition().x - m_size.x / 2.0f + m_velocity.x, m_animatedSprite.getPosition().y - m_size.y / 2.0f }, m_size }))
 		{
 			// Get the sign of the velocity
 			float velocitySign = (0.0f < m_velocity.x) - (m_velocity.x < 0.0f);
 
 			// Move by the sign until right next to the wall
-			while (!CollisionDetector::isColliding(t_levelRef, { { m_animatedSprite.getPosition().x - 8.0f + velocitySign, m_animatedSprite.getPosition().y - 8.0f }, { 16.0f, 16.0f } }))
+			while (!CollisionDetector::isColliding(t_levelRef, { { m_animatedSprite.getPosition().x - m_size.x / 2.0f + velocitySign, m_animatedSprite.getPosition().y - m_size.y / 2.0f }, m_size }))
 			{
 				m_animatedSprite.move(velocitySign, 0.0f);
 			}
@@ -107,12 +110,12 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 	}
 
 	// Vertical collisions
-	if (CollisionDetector::isColliding(t_levelRef, { { m_animatedSprite.getPosition().x - 8.0f, m_animatedSprite.getPosition().y - 8.0f + m_velocity.y }, { 16.0f, 16.0f } }))
+	if (CollisionDetector::isColliding(t_levelRef, { { m_animatedSprite.getPosition().x - m_size.x / 2.0f, m_animatedSprite.getPosition().y - m_size.y / 2.0f + m_velocity.y }, m_size }))
 	{
 		// Get the sign of the velocity
 		float velocitySign = (0.0f < m_velocity.y) - (m_velocity.y < 0.0f);
 
-		while (!CollisionDetector::isColliding(t_levelRef, { { m_animatedSprite.getPosition().x - 8.0f, m_animatedSprite.getPosition().y - 8.0f + velocitySign }, { 16.0f, 16.0f } }))
+		while (!CollisionDetector::isColliding(t_levelRef, { { m_animatedSprite.getPosition().x - m_size.x / 2.0f, m_animatedSprite.getPosition().y - m_size.y / 2.0f + velocitySign }, m_size }))
 		{
 			m_animatedSprite.move(0.0f, velocitySign);
 		}
@@ -128,6 +131,12 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 	{
 		m_animatedSprite.move(0.0f, m_velocity.y);
 	}
+}
+
+///////////////////////////////////////////////////////////////////
+sf::FloatRect const Player::getCollisionBounds() const
+{
+	return { m_animatedSprite.getPosition() - m_size / 2.0f, m_size };
 }
 
 ///////////////////////////////////////////////////////////////////

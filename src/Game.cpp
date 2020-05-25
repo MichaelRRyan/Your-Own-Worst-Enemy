@@ -72,19 +72,18 @@ void Game::update(sf::Time t_deltaTime)
 ///////////////////////////////////////////////////////////////////
 void Game::render()
 {
-	m_window.clear();
-
-	sf::RectangleShape tile{ { 16.0f, 16.0f } };
+	m_window.clear(sf::Color::White);
 
 	for (int row = 0; row < m_level.getSize().y; row++)
 	{
 		for (int col = 0; col < m_level.getSize().x; col++)
 		{
-			tile.setPosition(col * tile.getSize().x, row * tile.getSize().y);
-
-			tile.setFillColor(m_level.getTile(row, col).getColor());
-
-			m_window.draw(tile);
+			if (m_level.getTile(row, col).isVisible())
+			{
+				m_tileSprite.setPosition(col * m_tileSprite.getGlobalBounds().width, row * m_tileSprite.getGlobalBounds().height);
+				m_tileSprite.setTextureRect(m_level.getTile(row, col).getTextureRect());
+				m_window.draw(m_tileSprite);
+			}
 		}
 	}
 
@@ -109,11 +108,34 @@ void Game::setupGame()
 
 	m_level.setTile(5, 0, new SolidTile);
 
+	for (int i = 0; i < m_level.getSize().x; i++)
+	{
+		m_level.setTile(m_level.getSize().y - 1, i, new SolidTile);
+	}
+
+	m_level.setTile(m_level.getSize().y - 3, 2, new SolidTile(2));
+	m_level.setTile(m_level.getSize().y - 3, 3, new SolidTile(3));
+	m_level.setTile(m_level.getSize().y - 2, 2, new SolidTile(4));
+	m_level.setTile(m_level.getSize().y - 2, 3, new SolidTile(5));
+
+	m_level.setTile(m_level.getSize().y - 4, 5, new SolidTile(2));
+	m_level.setTile(m_level.getSize().y - 4, 6, new SolidTile(3));
+	m_level.setTile(m_level.getSize().y - 3, 5, new SolidTile(4));
+	m_level.setTile(m_level.getSize().y - 3, 6, new SolidTile(5));
+
 	m_entities.push_back(std::make_unique<Player>());
 
 	float viewScale = 4.0f;
 
 	m_window.setView({ m_window.getView().getCenter() / viewScale, m_window.getView().getSize() / viewScale });
+
+	if (!m_tileSheet.loadFromFile("assets/images/tile_sheet.png"))
+	{
+		std::exception exception("failed to load tile sheet texture");
+		throw(exception);
+	}
+
+	m_tileSprite.setTexture(m_tileSheet);
 }
 
 ///////////////////////////////////////////////////////////////////

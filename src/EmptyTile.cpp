@@ -3,13 +3,18 @@
 #include "EmptyTile.h"
 
 ///////////////////////////////////////////////////////////////////
-sf::Color const EmptyTile::getColor() const
+sf::IntRect const EmptyTile::getTextureRect() const
 {
-	return sf::Color::White;
+	return sf::IntRect();
 }
 
 ///////////////////////////////////////////////////////////////////
 bool const EmptyTile::isSolid() const
+{
+	return false;
+}
+
+bool const EmptyTile::isVisible() const
 {
 	return false;
 }

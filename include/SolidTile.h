@@ -12,9 +12,17 @@ class SolidTile : public Tile
 {
 public:
 
-	sf::Color const getColor() const override;
+	SolidTile(int const t_textureNum = 0);
+
+	sf::IntRect const getTextureRect() const override;
 
 	bool const isSolid() const override;
+
+	bool const isVisible() const override;
+
+private:
+
+	int const m_textureNum;
 
 };
 

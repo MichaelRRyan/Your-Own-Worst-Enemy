@@ -16,6 +16,12 @@ public:
 
 	virtual void update(sf::Time const& t_deltaTime, Level const & t_levelRef) = 0;
 
+	virtual sf::FloatRect const getCollisionBounds() const = 0;
+
+protected:
+
+	sf::Vector2f m_size;
+
 };
 
 #endif // !ENTITY_H
