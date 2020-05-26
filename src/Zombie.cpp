@@ -1,10 +1,12 @@
 /// @Author Michael Rainsford Ryan
 
-#include "Player.h"
+#include "Zombie.h"
 
 ///////////////////////////////////////////////////////////////////
-Player::Player() :
-	m_onGround{ false }
+
+Zombie::Zombie(sf::Vector2f t_tilePosition, std::weak_ptr<Entity> t_target) :
+	m_onGround{ false },
+	m_target{ t_target }
 {
 	m_size = { 12.0f, 14.0f };
 
@@ -14,43 +16,30 @@ Player::Player() :
 		throw(exception);
 	}
 
-	m_animatedSprite.addAnimation("walk", Animation{ m_texture, { 32, 0, 16, 16 } });
-	m_animatedSprite.addFrame("walk", { 0, 0, 16, 16 });
-	m_animatedSprite.addFrame("walk", { 48, 0, 16, 16 });
-	m_animatedSprite.addFrame("walk", { 0, 0, 16, 16 });
+	m_animatedSprite.addAnimation("idle", Animation{ m_texture, { 0, 16, 16, 16 } });
+	m_animatedSprite.addFrame("idle", { 16, 16, 16, 16 });
+	m_animatedSprite.addFrame("idle", { 32, 16, 16, 16 });
+	m_animatedSprite.addFrame("idle", { 48, 16, 16, 16 });
 
-	m_animatedSprite.addAnimation("idle", Animation{ m_texture, { 0, 0, 16, 16 } });
-	m_animatedSprite.addFrame("idle", { 0, 0, 16, 16 });
-	m_animatedSprite.addFrame("idle", { 16, 0, 16, 16 });
-	m_animatedSprite.addFrame("idle", { 16, 0, 16, 16 });
+	m_animatedSprite.addAnimation("walk", Animation{ m_texture, { 64, 16, 16, 16 } });
+	m_animatedSprite.addFrame("walk", { 0, 16, 16, 16 });
+	m_animatedSprite.addFrame("walk", { 80, 16, 16, 16 });
+	m_animatedSprite.addFrame("walk", { 0, 16, 16, 16 });
 
 	m_animatedSprite.setOrigin(8.0f, 9.0f);
-	m_animatedSprite.setPosition(8.0f, 8.0f);
+	m_animatedSprite.setPosition(t_tilePosition * 16.0f + m_size / 2.0f);
 }
 
-///////////////////////////////////////////////////////////////////
-void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
+void Zombie::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 {
 	m_animatedSprite.update(t_deltaTime);
 
-	// Take left and right movement input
-	float input = 0.0f;
+	sf::FloatRect const targetBounds = m_target.lock()->getCollisionBounds();
 
-	// Get movement input
-	if (Input::getCurrentState().moveRight)
-	{
-		input += 1.0f;
-		m_animatedSprite.setScale(1.0f, 1.0f);
-	}
-
-	if (Input::getCurrentState().moveLeft)
-	{
-		input -= 1.0f;
-		m_animatedSprite.setScale(-1.0f, 1.0f);
-	}
+	float input = vmath::sign(targetBounds.left - getCollisionBounds().left);
 
 	// Set the velocity and clamp it to a max speed
-	m_velocity.x += input * s_MOVE_ACCELERATION;
+	m_velocity.x += input * (rand() / static_cast<float>(RAND_MAX) * s_MOVE_ACCELERATION + s_MOVE_ACCELERATION);
 
 	m_velocity.x = vmath::clamp(m_velocity.x, -s_MAX_MOVE_SPEED, s_MAX_MOVE_SPEED);
 
@@ -60,8 +49,6 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 	// Apply friction
 	if (input == 0.0f)
 	{
-		m_animatedSprite.startAnimating("idle");
-
 		if (m_onGround)
 		{
 			m_velocity.x = m_velocity.x * s_GROUND_FRICTION;
@@ -73,17 +60,11 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 	}
 	else
 	{
-		m_animatedSprite.startAnimating("walk");
+		m_animatedSprite.setScale(input, 1.0f);
 	}
 
-	// Jump
-	if (Input::getCurrentState().jump && !Input::getPreviousState().jump)
-	{
-		if (m_onGround)
-		{
-			m_velocity.y = -s_JUMP_SPEED;
-		}
-	}
+	// Apply gravity
+	m_velocity.y += s_GRAVITY;
 
 	m_onGround = false;
 
@@ -131,18 +112,23 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 	{
 		m_animatedSprite.move(0.0f, m_velocity.y);
 	}
+
+	if (m_velocity.x != 0)
+	{
+		m_animatedSprite.startAnimating("walk");
+	}
+	else
+	{
+		m_animatedSprite.startAnimating("idle");
+	}
 }
 
-///////////////////////////////////////////////////////////////////
-sf::FloatRect const Player::getCollisionBounds() const
+sf::FloatRect const Zombie::getCollisionBounds() const
 {
 	return { m_animatedSprite.getPosition() - m_size / 2.0f, m_size };
 }
 
-///////////////////////////////////////////////////////////////////
-void Player::draw(sf::RenderTarget& t_target, sf::RenderStates t_states) const
+void Zombie::draw(sf::RenderTarget& t_target, sf::RenderStates t_states) const
 {
-	t_target.draw(m_animatedSprite, t_states);
+	t_target.draw(m_animatedSprite);
 }
-
-///////////////////////////////////////////////////////////////////

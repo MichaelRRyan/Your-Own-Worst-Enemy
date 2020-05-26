@@ -75,6 +75,9 @@
     <ClCompile Include="src\VectorMath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Zombie.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h">
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="include\CollisionDetector.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zombie.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -63,7 +63,7 @@ void Game::update(sf::Time t_deltaTime)
 
 	Input::update(m_window);
 
-	for (std::unique_ptr<Entity> & entity : m_entities)
+	for (std::shared_ptr<Entity> & entity : m_entities)
 	{
 		entity->update(t_deltaTime, m_level);
 	}
@@ -87,7 +87,7 @@ void Game::render()
 		}
 	}
 
-	for (std::unique_ptr<Entity> const & entity : m_entities)
+	for (std::shared_ptr<Entity> const & entity : m_entities)
 	{
 		m_window.draw(*entity);
 	}
@@ -123,7 +123,14 @@ void Game::setupGame()
 	m_level.setTile(m_level.getSize().y - 3, 5, new SolidTile(4));
 	m_level.setTile(m_level.getSize().y - 3, 6, new SolidTile(5));
 
-	m_entities.push_back(std::make_unique<Player>());
+	m_entities.push_back(std::make_shared<Player>());
+
+	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 6.0f, 2.0f }, m_entities.at(0)));
+	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 9.0f, 2.0f }, m_entities.at(0)));
+	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 12.0f, 2.0f }, m_entities.at(0)));
+	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 15.0f, 2.0f }, m_entities.at(0)));
+
+	
 
 	float viewScale = 4.0f;
 

@@ -18,6 +18,7 @@
 
 #include "Entity.h"
 #include "Player.h"
+#include "Zombie.h"
 
 /// <summary>
 /// The game's main class. Keeps the game running at 60
@@ -45,7 +46,7 @@ private:
 
 	Level m_level;
 
-	std::vector<std::unique_ptr<Entity>> m_entities;
+	std::vector<std::shared_ptr<Entity>> m_entities;
 
 	Gamepad m_controller;
 

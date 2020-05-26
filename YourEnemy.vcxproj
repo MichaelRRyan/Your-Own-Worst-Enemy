@@ -155,6 +155,7 @@
     <ClCompile Include="src\SolidTile.cpp" />
     <ClCompile Include="src\Tile.cpp" />
     <ClCompile Include="src\VectorMath.cpp" />
+    <ClCompile Include="src\Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AnimatedSprite.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="include\SolidTile.h" />
     <ClInclude Include="include\Tile.h" />
     <ClInclude Include="include\VectorMath.h" />
+    <ClInclude Include="include\Zombie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
