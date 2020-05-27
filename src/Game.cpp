@@ -74,18 +74,7 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 
-	for (int row = 0; row < m_level.getSize().y; row++)
-	{
-		for (int col = 0; col < m_level.getSize().x; col++)
-		{
-			if (m_level.getTile(row, col).isVisible())
-			{
-				m_tileSprite.setPosition(col * m_tileSprite.getGlobalBounds().width, row * m_tileSprite.getGlobalBounds().height);
-				m_tileSprite.setTextureRect(m_level.getTile(row, col).getTextureRect());
-				m_window.draw(m_tileSprite);
-			}
-		}
-	}
+	m_level.draw(m_window, m_tileSprite);
 
 	for (std::shared_ptr<Entity> const & entity : m_entities)
 	{
@@ -130,11 +119,18 @@ void Game::setupGame()
 	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 12.0f, 2.0f }, m_entities.at(0)));
 	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 15.0f, 2.0f }, m_entities.at(0)));
 
-	
+	// Set up the view
+	sf::View newView{ m_window.getDefaultView() };
 
-	float viewScale = 4.0f;
+	float aspectRatio = newView.getSize().x / newView.getSize().y;
 
-	m_window.setView({ m_window.getView().getCenter() / viewScale, m_window.getView().getSize() / viewScale });
+	float viewHeight = m_level.getSize().y * 16.0f;
+
+	newView.setSize(viewHeight * aspectRatio, viewHeight);
+
+	newView.setCenter(newView.getSize() / 2.0f);
+
+	m_window.setView(newView);
 
 	if (!m_tileSheet.loadFromFile("assets/images/tile_sheet.png"))
 	{

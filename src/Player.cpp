@@ -24,6 +24,8 @@ Player::Player() :
 	m_animatedSprite.addFrame("idle", { 16, 0, 16, 16 });
 	m_animatedSprite.addFrame("idle", { 16, 0, 16, 16 });
 
+	m_animatedSprite.addAnimation("jump", Animation{ m_texture, { 64, 0, 16, 16 } });
+
 	m_animatedSprite.setOrigin(8.0f, 9.0f);
 	m_animatedSprite.setPosition(8.0f, 8.0f);
 }
@@ -60,20 +62,27 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 	// Apply friction
 	if (input == 0.0f)
 	{
-		m_animatedSprite.startAnimating("idle");
-
 		if (m_onGround)
 		{
 			m_velocity.x = m_velocity.x * s_GROUND_FRICTION;
+			m_animatedSprite.startAnimating("idle");
 		}
 		else
 		{
 			m_velocity.x = m_velocity.x * s_AIR_FRICTION;
+			m_animatedSprite.startAnimating("jump");
 		}
 	}
 	else
 	{
-		m_animatedSprite.startAnimating("walk");
+		if (m_onGround)
+		{
+			m_animatedSprite.startAnimating("walk");
+		}
+		else
+		{
+			m_animatedSprite.startAnimating("jump");
+		}
 	}
 
 	// Jump
