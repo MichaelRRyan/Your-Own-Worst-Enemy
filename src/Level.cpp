@@ -50,32 +50,29 @@ void Level::draw(sf::RenderWindow& t_window, sf::Sprite& t_tileSprite)
 	{
 		for (int col = 0; col < size.x; col++)
 		{
+			t_tileSprite.setPosition(col * t_tileSprite.getGlobalBounds().width, row * t_tileSprite.getGlobalBounds().height);
+
+			switch (m_backgroundTiles[row][col])
+			{
+			case 1:
+				t_tileSprite.setTextureRect({ 16, 32, 16, 16 });
+				break;
+			case 2:
+				t_tileSprite.setTextureRect({ 0, 48, 16, 16 });
+				break;
+			case 3:
+				t_tileSprite.setTextureRect({ 16, 48, 16, 16 });
+				break;
+			default:
+				t_tileSprite.setTextureRect({ 0, 32, 16, 16 });
+				break;
+			}
+
+			t_window.draw(t_tileSprite);
+
 			if (getTile(row, col).isVisible())
 			{
-				t_tileSprite.setPosition(col * t_tileSprite.getGlobalBounds().width, row * t_tileSprite.getGlobalBounds().height);
 				t_tileSprite.setTextureRect(getTile(row, col).getTextureRect());
-				t_window.draw(t_tileSprite);
-			}
-			else
-			{
-				t_tileSprite.setPosition(col * t_tileSprite.getGlobalBounds().width, row * t_tileSprite.getGlobalBounds().height);
-
-				switch (m_backgroundTiles[row][col])
-				{
-				case 1:
-					t_tileSprite.setTextureRect({ 16, 32, 16, 16 });
-					break;
-				case 2:
-					t_tileSprite.setTextureRect({ 0, 48, 16, 16 });
-					break;
-				case 3:
-					t_tileSprite.setTextureRect({ 16, 48, 16, 16 });
-					break;
-				default:
-					t_tileSprite.setTextureRect({ 0, 32, 16, 16 });
-					break;
-				}
-				
 				t_window.draw(t_tileSprite);
 			}
 		}

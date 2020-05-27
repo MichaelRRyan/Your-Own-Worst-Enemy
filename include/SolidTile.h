@@ -20,6 +20,8 @@ public:
 
 	bool const isVisible() const override;
 
+	bool const isDeadly() const override;
+
 private:
 
 	int const m_textureNum;

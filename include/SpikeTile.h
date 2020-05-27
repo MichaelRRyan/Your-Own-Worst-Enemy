@@ -1,16 +1,18 @@
-#ifndef EMPTY_TILE_H
-#define EMPTY_TILE_H
+#ifndef SPIKE_TILE_H
+#define SPIKE_TILE_H
 
 /// <summary>
 /// @Author Michael Rainsford Ryan
-/// @Date 24/05/2020
+/// @Date 27/05/2020
 /// </summary>
 
 #include "Tile.h"
 
-class EmptyTile : public Tile
+class SpikeTile : public Tile
 {
 public:
+
+	SpikeTile(int const t_textureNum = 0);
 
 	sf::IntRect const getTextureRect() const override;
 
@@ -20,8 +22,12 @@ public:
 
 	bool const isDeadly() const override;
 
+private:
+
+	int const m_textureNum;
+
 };
 
 
-#endif // !EMPTY_TILE_H
+#endif // !SPIKE_TILE_H
 

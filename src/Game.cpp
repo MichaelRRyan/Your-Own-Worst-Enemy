@@ -112,7 +112,13 @@ void Game::setupGame()
 	m_level.setTile(m_level.getSize().y - 3, 5, new SolidTile(4));
 	m_level.setTile(m_level.getSize().y - 3, 6, new SolidTile(5));
 
-	m_entities.push_back(std::make_shared<Player>());
+	m_level.setTile(m_level.getSize().y - 2, 8, new SpikeTile);
+
+	std::shared_ptr<Player> player = std::make_shared<Player>();
+
+	player->addObserver(&m_gameplayManager);
+
+	m_entities.push_back(player);
 
 	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 6.0f, 2.0f }, m_entities.at(0)));
 	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 9.0f, 2.0f }, m_entities.at(0)));

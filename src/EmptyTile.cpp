@@ -14,7 +14,14 @@ bool const EmptyTile::isSolid() const
 	return false;
 }
 
+///////////////////////////////////////////////////////////////////
 bool const EmptyTile::isVisible() const
+{
+	return false;
+}
+
+///////////////////////////////////////////////////////////////////
+bool const EmptyTile::isDeadly() const
 {
 	return false;
 }

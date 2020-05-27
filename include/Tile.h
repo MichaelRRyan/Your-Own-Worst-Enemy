@@ -18,6 +18,8 @@ public:
 
 	virtual bool const isVisible() const = 0;
 
+	virtual bool const isDeadly() const = 0;
+
 };
 
 #endif // !TILE_H

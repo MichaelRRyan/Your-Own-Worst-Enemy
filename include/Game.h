@@ -15,10 +15,13 @@
 #include "Level.h"
 #include "EmptyTile.h"
 #include "SolidTile.h"
+#include "SpikeTile.h"
 
 #include "Entity.h"
 #include "Player.h"
 #include "Zombie.h"
+
+#include "GameplayManager.h"
 
 /// <summary>
 /// The game's main class. Keeps the game running at 60
@@ -52,6 +55,8 @@ private:
 
 	sf::Texture m_tileSheet;
 	sf::Sprite m_tileSprite;
+
+	GameplayManager m_gameplayManager;
 
 };
 

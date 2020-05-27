@@ -6,13 +6,13 @@
 /// @Date 24/05/2020
 /// </summary>
 
-#include "Entity.h"
+#include "PhysicsBody.h"
 #include "AnimatedSprite.h"
 #include "Input.h"
 #include "CollisionDetector.h"
 #include "VectorMath.h"
 
-class Player : public Entity
+class Player : public PhysicsBody
 {
 public:
 
@@ -37,9 +37,9 @@ private:
 
 	sf::Texture m_texture;
 
-	sf::Vector2f m_velocity;
+	//sf::Vector2f m_velocity;
 
-	bool m_onGround;
+	//bool m_onGround;
 
 };
 
