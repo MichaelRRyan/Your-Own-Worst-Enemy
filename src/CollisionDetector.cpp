@@ -1,30 +1,37 @@
 #include "CollisionDetector.h"
 
-bool CollisionDetector::isColliding(Level const& t_level, sf::FloatRect const& t_collisionBounds)
+CollisionInfo CollisionDetector::isColliding(Level const& t_level, sf::FloatRect const& t_collisionBounds)
 {
 	int minRow = static_cast<int>(t_collisionBounds.top / 16.0f);
 	int maxRow = static_cast<int>((t_collisionBounds.top + t_collisionBounds.height) / 16.0f);
 	int minCol = static_cast<int>(t_collisionBounds.left / 16.0f);
 	int maxCol = static_cast<int>((t_collisionBounds.left + t_collisionBounds.width) / 16.0f);
 
+	CollisionInfo info;
+
 	if (t_collisionBounds.top < 0 || t_collisionBounds.left < 0 || maxRow >= t_level.getSize().y || maxCol >= t_level.getSize().x)
 	{
-		return true;
+		info.solid = true;
+		return info;
 	}
 
 	for (int row = minRow; row <= maxRow; row++)
 	{
 		for (int col = minCol; col <= maxCol; col++)
-		{
+		{	
+			// Colliding
 			if (t_level.getTile(row, col).isSolid())
 			{
-				// Colliding
-				return true;
+				info.solid = true;
+			}
+			if (t_level.getTile(row, col).isDeadly())
+			{
+				info.deadly = true;
 			}
 		}
 	}
 
-	return false;
+	return info;
 }
 
 bool CollisionDetector::isColliding(sf::FloatRect const& t_collisionBounds1, sf::FloatRect const& t_collisionBounds2)

@@ -5,7 +5,8 @@
 ///////////////////////////////////////////////////////////////////
 Game::Game() :
 	m_window{ sf::VideoMode{ 1280u, 720u, 32u }, "Basic Game" },
-	m_exitGame{ false }
+	m_exitGame{ false },
+	m_gameplayManager{ m_entities }
 {
 	setupGame();
 
@@ -119,11 +120,6 @@ void Game::setupGame()
 	player->addObserver(&m_gameplayManager);
 
 	m_entities.push_back(player);
-
-	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 6.0f, 2.0f }, m_entities.at(0)));
-	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 9.0f, 2.0f }, m_entities.at(0)));
-	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 12.0f, 2.0f }, m_entities.at(0)));
-	m_entities.push_back(std::make_shared<Zombie>(sf::Vector2f{ 15.0f, 2.0f }, m_entities.at(0)));
 
 	// Set up the view
 	sf::View newView{ m_window.getDefaultView() };

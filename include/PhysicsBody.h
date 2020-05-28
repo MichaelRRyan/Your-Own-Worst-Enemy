@@ -21,6 +21,8 @@ public:
 
 	virtual sf::FloatRect const getCollisionBounds() const = 0;
 
+	sf::Vector2f const & getPosition() const;
+
 protected:
 
 	void updatePhysics(Level const& t_levelRef);
@@ -32,6 +34,8 @@ protected:
 	void accelerateRight();
 
 	bool const onGround() const;
+
+	bool const isAccelerating() const;
 
 	float m_moveAcceleration{ 0.05f };
 	float m_maxMoveSpeed{ 1.0f };
@@ -47,11 +51,9 @@ protected:
 
 private:
 
-	bool const isColliding(Level const& t_level, sf::FloatRect const& t_collisionBounds);
-
 	bool m_onGround;
 
-	bool m_horizontalVelocityChanged;
+	bool m_accelerating;
 
 };
 

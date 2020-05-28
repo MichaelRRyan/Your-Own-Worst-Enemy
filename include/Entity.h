@@ -18,9 +18,13 @@ public:
 
 	virtual sf::FloatRect const getCollisionBounds() const = 0;
 
+	bool const isActive() const;
+
 protected:
 
 	sf::Vector2f m_size;
+
+	bool m_active;
 
 };
 

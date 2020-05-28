@@ -4,11 +4,17 @@
 #include <SFML/Graphics.hpp>
 #include "Level.h"
 
+struct CollisionInfo
+{
+	bool solid{ false };
+	bool deadly{ false };
+};
+
 class CollisionDetector
 {
 public:
 
-	static bool isColliding(Level const & t_level, sf::FloatRect const & t_collisionBounds);
+	static CollisionInfo isColliding(Level const & t_level, sf::FloatRect const & t_collisionBounds);
 
 	static bool isColliding(sf::FloatRect const& t_collisionBounds1, sf::FloatRect const& t_collisionBounds2);
 
