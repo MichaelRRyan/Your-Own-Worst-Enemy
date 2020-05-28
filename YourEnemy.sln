@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YourEnemy", "YourEnemy.vcxproj", "{CD83263D-0C79-40B8-8E4A-37568BC61A7D}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{8F4F6407-85A6-49D0-ADCC-8FE7CD207F4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{CD83263D-0C79-40B8-8E4A-37568BC61A7D}.Release|x64.Build.0 = Release|x64
 		{CD83263D-0C79-40B8-8E4A-37568BC61A7D}.Release|x86.ActiveCfg = Release|Win32
 		{CD83263D-0C79-40B8-8E4A-37568BC61A7D}.Release|x86.Build.0 = Release|Win32
+		{8F4F6407-85A6-49D0-ADCC-8FE7CD207F4B}.Debug|x64.ActiveCfg = Debug
+		{8F4F6407-85A6-49D0-ADCC-8FE7CD207F4B}.Debug|x86.ActiveCfg = Debug
+		{8F4F6407-85A6-49D0-ADCC-8FE7CD207F4B}.Release|x64.ActiveCfg = Release
+		{8F4F6407-85A6-49D0-ADCC-8FE7CD207F4B}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@
 
 ///////////////////////////////////////////////////////////////////
 Game::Game() :
-	m_window{ sf::VideoMode{ 1280u, 720u, 32u }, "Basic Game" },
+	m_window{ sf::VideoMode{ 1280u, 720u, 32u }, "Your Own Worst Enemy" },
 	m_exitGame{ false },
 	m_gameplayManager{ m_level, m_entities }
 {
