@@ -18,11 +18,13 @@ class GameplayManager : public Observer
 {
 public:
 
-	GameplayManager(std::vector<std::shared_ptr<Entity>>& t_entitiesRef);
+	GameplayManager(Level& t_levelRef, std::vector<std::shared_ptr<Entity>>& t_entitiesRef);
 
-	virtual void onNotify(Entity const * t_entity, ObserverEvent const t_event) override;
+	virtual void onNotify(Entity * t_entity, ObserverEvent const t_event) override;
 
 private:
+
+	Level& m_levelRef;
 
 	std::vector<std::shared_ptr<Entity>> & m_entitiesRef;
 

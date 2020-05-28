@@ -24,7 +24,7 @@ void Subject::removeObserver(Observer * t_observer)
 }
 
 ///////////////////////////////////////////////////////////////////
-void Subject::notify(Entity const* t_entity, ObserverEvent const t_event)
+void Subject::notify(Entity * t_entity, ObserverEvent const t_event)
 {
 	for (Observer * observer : m_observers)
 	{

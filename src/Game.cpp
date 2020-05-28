@@ -6,7 +6,7 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ 1280u, 720u, 32u }, "Basic Game" },
 	m_exitGame{ false },
-	m_gameplayManager{ m_entities }
+	m_gameplayManager{ m_level, m_entities }
 {
 	setupGame();
 
@@ -64,9 +64,9 @@ void Game::update(sf::Time t_deltaTime)
 
 	Input::update(m_window);
 
-	for (std::shared_ptr<Entity> & entity : m_entities)
+	for (int i = 0; i < m_entities.size(); i++)
 	{
-		entity->update(t_deltaTime, m_level);
+		m_entities.at(i)->update(t_deltaTime, m_level);
 	}
 }
 
@@ -115,9 +115,13 @@ void Game::setupGame()
 
 	m_level.setTile(m_level.getSize().y - 2, 8, new SpikeTile);
 
+	m_level.setTile(5, 5, new CheckpointTile(true));
+
 	std::shared_ptr<Player> player = std::make_shared<Player>();
 
 	player->addObserver(&m_gameplayManager);
+
+	player->spawn(static_cast<sf::Vector2f>(m_level.getCurrentCheckpointTile()) * 16.0f + sf::Vector2f{ 8.0f, 0.0f });
 
 	m_entities.push_back(player);
 

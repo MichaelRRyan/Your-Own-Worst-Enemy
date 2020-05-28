@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="src\AnimatedSprite.cpp" />
     <ClCompile Include="src\Animation.cpp" />
+    <ClCompile Include="src\CheckpointTile.cpp" />
     <ClCompile Include="src\CollisionDetector.cpp" />
     <ClCompile Include="src\EmptyTile.cpp" />
     <ClCompile Include="src\Entity.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="include\AnimatedSprite.h" />
     <ClInclude Include="include\Animation.h" />
+    <ClInclude Include="include\CheckpointTile.h" />
     <ClInclude Include="include\CollisionDetector.h" />
     <ClInclude Include="include\EmptyTile.h" />
     <ClInclude Include="include\Entity.h" />

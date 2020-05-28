@@ -16,6 +16,7 @@
 #include "EmptyTile.h"
 #include "SolidTile.h"
 #include "SpikeTile.h"
+#include "CheckpointTile.h"
 
 #include "Entity.h"
 #include "Player.h"

@@ -20,7 +20,7 @@ public:
 
 protected:
 
-	void notify(Entity const * t_entity, ObserverEvent const t_event);
+	void notify(Entity * t_entity, ObserverEvent const t_event);
 
 private:
 

@@ -22,6 +22,10 @@ public:
 
 	virtual sf::FloatRect const getCollisionBounds() const override;
 
+	void spawn(sf::Vector2f const& t_position);
+
+	void die();
+
 private:
 
 	virtual void draw(sf::RenderTarget& t_target, sf::RenderStates t_states) const override;

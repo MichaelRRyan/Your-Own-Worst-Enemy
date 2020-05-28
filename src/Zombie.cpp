@@ -39,9 +39,12 @@ void Zombie::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 	{
 		m_animatedSprite.update(t_deltaTime);
 
-		if (m_target.lock()->isActive())
+		// TEMP - Bad code, should be refactored
+		Player * playerPtr = dynamic_cast<Player *>(m_target.lock().get());
+
+		if (playerPtr != nullptr && playerPtr->isActive())
 		{
-			sf::FloatRect const targetBounds = m_target.lock()->getCollisionBounds();
+			sf::FloatRect const targetBounds = playerPtr->getCollisionBounds();
 
 			if (targetBounds.left > getCollisionBounds().left)
 			{
@@ -52,6 +55,11 @@ void Zombie::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 			{
 				accelerateLeft();
 				m_animatedSprite.setScale(-1.0f, 1.0f);
+			}
+
+			if (CollisionDetector::isColliding(getCollisionBounds(), targetBounds))
+			{
+				playerPtr->die();
 			}
 		}
 

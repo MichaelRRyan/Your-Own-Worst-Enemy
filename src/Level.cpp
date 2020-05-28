@@ -3,7 +3,8 @@
 #include "Level.h"
 
 ///////////////////////////////////////////////////////////////////
-Level::Level()
+Level::Level() :
+	m_currentCheckpoint{ 0 }
 {
 	sf::Vector2i size = getSize();
 
@@ -26,6 +27,12 @@ Level::Level()
 ///////////////////////////////////////////////////////////////////
 void Level::setTile(int t_row, int t_col, Tile * t_tile)
 {
+	// Bad code - Bad system - should be refactored
+	if (typeid(*t_tile).name() == typeid(CheckpointTile).name())
+	{
+		m_checkpointTiles.push_back({ t_col, t_row });
+	}
+
 	m_tiles.at(t_row).at(t_col).reset(t_tile);
 }
 
@@ -75,6 +82,50 @@ void Level::draw(sf::RenderWindow& t_window, sf::Sprite& t_tileSprite)
 				t_tileSprite.setTextureRect(getTile(row, col).getTextureRect());
 				t_window.draw(t_tileSprite);
 			}
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////
+sf::Vector2i const Level::getCurrentCheckpointTile() const
+{
+	if (m_currentCheckpoint < m_checkpointTiles.size())
+	{
+		return m_checkpointTiles.at(m_currentCheckpoint);
+	}
+	
+	return { 0, 0 };
+}
+
+///////////////////////////////////////////////////////////////////
+/// Bad code vv
+/// Should be majorly refactored ASAP
+void Level::nextCheckpoint()
+{
+	if (m_currentCheckpoint + 1 < m_checkpointTiles.size())
+	{
+		// Disable the previous checkpoint
+		// Get a checkpoint tile pointer from the base tile pointer
+		sf::Vector2i checkpointPos = m_checkpointTiles.at(m_currentCheckpoint);
+		Tile * lastCheckpoint = m_tiles[checkpointPos.y][checkpointPos.x].get();
+		CheckpointTile * checkpoint = dynamic_cast<CheckpointTile *>(lastCheckpoint);
+
+		if (checkpoint != nullptr)
+		{
+			checkpoint->setEnabled(false);
+		}
+
+		m_currentCheckpoint++;
+
+		// Enable the new current checkpoint
+		// Get a checkpoint tile pointer from the base tile pointer
+		checkpointPos = m_checkpointTiles.at(m_currentCheckpoint);
+		lastCheckpoint = m_tiles[checkpointPos.y][checkpointPos.x].get();
+		checkpoint = dynamic_cast<CheckpointTile*>(lastCheckpoint);
+
+		if (checkpoint != nullptr)
+		{
+			checkpoint->setEnabled(true);
 		}
 	}
 }

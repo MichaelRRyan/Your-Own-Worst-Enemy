@@ -67,8 +67,7 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 		// Check after physics update to use updated position
 		if (CollisionDetector::isColliding(t_levelRef, getCollisionBounds()).deadly)
 		{
-			notify(this, ObserverEvent::EntityDied);
-			m_active = false;
+			die();
 		}
 	}
 }
@@ -76,7 +75,22 @@ void Player::update(sf::Time const& t_deltaTime, Level const& t_levelRef)
 ///////////////////////////////////////////////////////////////////
 sf::FloatRect const Player::getCollisionBounds() const
 {
-	return { m_animatedSprite.getPosition() - m_size / 2.0f, m_size };
+	return { m_position - m_size / 2.0f, m_size };
+}
+
+///////////////////////////////////////////////////////////////////
+void Player::spawn(sf::Vector2f const& t_position)
+{
+	m_active = true;
+	m_position = t_position;
+	m_velocity = { 0.0f, 0.0f };
+}
+
+///////////////////////////////////////////////////////////////////
+void Player::die()
+{
+	m_active = false;
+	notify(this, ObserverEvent::EntityDied);
 }
 
 ///////////////////////////////////////////////////////////////////

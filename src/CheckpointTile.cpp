@@ -1,0 +1,47 @@
+/// @Author Michael Rainsford Ryan
+
+#include "CheckpointTile.h"
+
+CheckpointTile::CheckpointTile(bool const t_enabled) :
+	m_enabled{ t_enabled }
+{
+}
+
+///////////////////////////////////////////////////////////////////
+sf::IntRect const CheckpointTile::getTextureRect() const
+{
+	if (m_enabled)
+	{
+		return { 32, 32, 16, 16 };
+	}
+	else
+	{
+		return { 32, 48, 16, 16 };
+	}
+}
+
+///////////////////////////////////////////////////////////////////
+bool const CheckpointTile::isSolid() const
+{
+	return false;
+}
+
+///////////////////////////////////////////////////////////////////
+bool const CheckpointTile::isVisible() const
+{
+	return true;
+}
+
+///////////////////////////////////////////////////////////////////
+bool const CheckpointTile::isDeadly() const
+{
+	return false;
+}
+
+///////////////////////////////////////////////////////////////////
+void CheckpointTile::setEnabled(bool const t_state)
+{
+	m_enabled = t_state;
+}
+
+///////////////////////////////////////////////////////////////////

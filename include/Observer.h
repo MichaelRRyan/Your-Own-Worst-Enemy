@@ -15,7 +15,7 @@ public:
 
 	virtual ~Observer() {}
 
-	virtual void onNotify(Entity const * t_entity, ObserverEvent const t_event) = 0;
+	virtual void onNotify(Entity * t_entity, ObserverEvent const t_event) = 0;
 
 };
 
